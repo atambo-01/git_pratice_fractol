@@ -75,11 +75,21 @@ int	key_hook(int keycode, t_data *data)
 int	mouse_hook(int button, int x, int y, t_data *data)
 {
 	double zoom_factor;
-
-	if (button == 4) // Zoom in
-		zoom_factor = 0.1;
-	else if (button == 5) // Zoom out
-		zoom_factor = -0.1;
+	zoom_factor = 0.0;
+	if (button == 4 && x)
+	{
+		if (data->x_max - data->x_min <= 1.0e-100)
+			ft_put_error("Max zoom lvl\n");
+		else
+			zoom_factor = 0.1;
+	}
+	else if (button == 5 && y)
+	{				
+		if (data->x_max - data->x_min >= 500)
+			ft_put_error("Max zoom lvl\n");
+		else
+			zoom_factor = -0.1;
+	}
 	else
 		return (0);
 
