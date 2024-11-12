@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   inputs_utils.c                                     :+:      :+:    :+:   */
+/*   complex.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atambo <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 21:17:13 by atambo            #+#    #+#             */
-/*   Updated: 2024/09/28 21:17:14 by atambo           ###   ########.fr       */
+/*   Created: 2024/09/28 15:19:16 by atambo            #+#    #+#             */
+/*   Updated: 2024/09/28 15:19:18 by atambo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-void	xy_lim_mult(t_data *data, double m)
+t_cmplx	add(t_cmplx a, t_cmplx b)
 {
-	data->x_min *= m;
-	data->x_max *= m;
-	data->y_min *= m;
-	data->y_max *= m;
+	t_cmplx	res;
+
+	res.r = a.r + b.r;
+	res.i = a.i + b.i;
+	return (res);
 }
 
-void	xy_lim_add(t_data *data, double dx, double dy)
+t_cmplx	mult(t_cmplx a, t_cmplx b)
 {
-	data->x_min += dx;
-	data->x_max += dx;
-	data->y_min += dy;
-	data->y_max += dy;
-}
+	t_cmplx	res;
 
-int	close_window(t_data *data)
-{
-	mlx_destroy_image(data->mlx, data->img);
-	mlx_destroy_window(data->mlx, data->win);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	free(data);
-	exit(0);
+	res.r = (a.r * b.r) - (a.i * b.i);
+	res.i = (a.r * b.i) + (a.i * b.r);
+	return (res);
 }
